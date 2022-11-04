@@ -109,30 +109,61 @@
 //}
 
 //三角形の入力から、三角形を二つ出力
-[maxvertexcount(6)]
-void main(triangle VSOutput input[3] : SV_POSITION,
-	inout TriangleStream< GSOutput > output) {
-	//一つ目の三角形
-	for (uint i = 0; i < 3; i++) {
-		GSOutput element;
-		element.svpos = input[i].svpos;
-		element.normal = input[i].normal;
-		element.uv = input[i].uv;
-		output.Append(element);
-	}
-	//現在のストリップを終了
-	output.RestartStrip();
+//[maxvertexcount(6)]
+//void main(triangle VSOutput input[3] : SV_POSITION,
+//	inout TriangleStream< GSOutput > output) {
+//	//一つ目の三角形
+//	for (uint i = 0; i < 3; i++) {
+//		GSOutput element;
+//		element.svpos = input[i].svpos;
+//		element.normal = input[i].normal;
+//		element.uv = input[i].uv;
+//		output.Append(element);
+//	}
+//	//現在のストリップを終了
+//	output.RestartStrip();
+//
+//	//二つ目の三角形
+//	for (uint i = 0; i < 3; i++) {
+//		GSOutput element;
+//		//X方向に20ずらす
+//		element.svpos = input[i].svpos + float4(20.0f, 0.0f, 0.0f, 0.0f);
+//		element.normal = input[i].normal;
+//		//UVを五倍に
+//		element.uv = input[i].uv * 5.0f;
+//		output.Append(element);
+//	}
+//}
 
-	//二つ目の三角形
-	for (uint i = 0; i < 3; i++) {
-		GSOutput element;
-		//X方向に20ずらす
-		element.svpos = input[i].svpos + float4(20.0f, 0.0f, 0.0f, 0.0f);
-		element.normal = input[i].normal;
-		//UVを五倍に
-		element.uv = input[i].uv * 5.0f;
-		output.Append(element);
-	}
+//点の入力から、点を出力
+//[maxvertexcount(1)]
+//void main(point VSOutput input[1] : SV_POSITION,
+//	inout PointStream< GSOutput > output) {
+//	GSOutput element;
+//	//頂点情報
+//	element.normal = input[0].normal;
+//	element.uv = input[0].uv;
+//	element.svpos = input[0].svpos;
+//	output.Append(element);
+//}
+
+//点の入力から、三角形を出力
+[maxvertexcount(3)]
+void main(point VSOutput input[1] : SV_POSITION,
+	inout TriangleStream< GSOutput > output) {
+	GSOutput element;
+	//共通
+	element.normal = input[0].normal;
+	element.uv = input[0].uv;
+	//一点目
+	element.svpos = input[0].svpos;
+	output.Append(element);
+	//二点目
+	element.svpos = input[0].svpos + float4(10.0f, 10.0f, 0,0);
+	output.Append(element);
+	//三点目
+	element.svpos = input[0].svpos + float4(10.0f, 0, 0, 0);
+	output.Append(element);
 }
 
 //[maxvertexcount(3)]
