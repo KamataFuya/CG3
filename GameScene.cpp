@@ -38,6 +38,12 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 	// 3Dオブジェクト生成
 	object3d = Object3d::Create();
 	object3d->Update();
+	comparisonObject = Object3d::Create();//比較用のオブジェクト生成
+	comparisonObject->Update2();
+	//比較用オブジェクト座標設定
+	XMFLOAT3 position02 = comparisonObject->GetPosition();
+	position02.x = 3.0f;
+	comparisonObject->SetPosition(position02);
 
 	//テクスチャ2番に読み込み
 	Sprite::LoadTexture(2, L"Resources/texture.png");
@@ -49,6 +55,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 
 void GameScene::Update()
 {
+	
 	// オブジェクト移動
 	if (input->PushKey(DIK_UP) || input->PushKey(DIK_DOWN) || input->PushKey(DIK_RIGHT) || input->PushKey(DIK_LEFT))
 	{
@@ -85,6 +92,7 @@ void GameScene::Update()
 	}
 
 	object3d->Update();
+	comparisonObject->Update2();
 }
 
 void GameScene::Draw()
@@ -114,6 +122,7 @@ void GameScene::Draw()
 
 	// 3Dオブクジェクトの描画
 	object3d->Draw();
+	comparisonObject->Draw();
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる

@@ -202,6 +202,11 @@ public: // メンバ関数
 	void Update();
 
 	/// <summary>
+	/// 
+	/// </summary>
+	void Update2();
+
+	/// <summary>
 	/// 描画
 	/// </summary>
 	void Draw();
